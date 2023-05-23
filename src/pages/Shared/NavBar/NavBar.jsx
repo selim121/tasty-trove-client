@@ -1,19 +1,11 @@
+import { Link } from "react-router-dom";
 
 const NavBar = () => {
 
     const navList = <>
-        <li><a>Item 1</a></li>
-        <li tabIndex={0}>
-            <a>
-                Parent
-                <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path d="M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z" /></svg>
-            </a>
-            <ul className="p-2">
-                <li><a>Submenu 1</a></li>
-                <li><a>Submenu 2</a></li>
-            </ul>
-        </li>
-        <li><a>Item 3</a></li>
+        <li><Link to={'/'}>Home</Link></li>
+        <li><Link to={'/menu'}>Our Menu</Link></li>
+        <li><Link to={'/order/salad'}>Order Food</Link></li>
     </>
 
     return (
@@ -28,7 +20,10 @@ const NavBar = () => {
                             {navList}
                         </ul>
                     </div>
-                    <a className="btn btn-ghost normal-case text-xl">TastyTrove</a>
+                    <div className="flex flex-col">
+                        <a className="btn btn-ghost normal-case text-xl">TastyTrove</a>
+                        <small className="uppercase px-5">restaurant</small>
+                    </div>
                 </div>
                 <div className="navbar-center hidden lg:flex">
                     <ul className="menu menu-horizontal px-1">
@@ -36,7 +31,7 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div className="navbar-end">
-                    <a className="btn">Get started</a>
+                <button className="btn btn-outline bg-[#e1cff6]  border-0 border-b-4 btn-primary mt-4">Sign In</button>
                 </div>
             </div>
         </>
