@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import img from '../../assets/others/authentication.gif';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
@@ -10,8 +10,9 @@ const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
     const { createUser, updateUserProfile } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleLogin = (data, e) => {
+    const handleRegister = (data, e) => {
         createUser(data.email, data.password)
             .then(result => {
                 const loggedUser = result.user;
@@ -26,7 +27,8 @@ const Register = () => {
                     title: 'Register Successfully',
                     showConfirmButton: false,
                     timer: 1500
-                  })
+                  });
+                  navigate('/');
                   
             })
     }
@@ -42,7 +44,7 @@ const Register = () => {
                         <img src={img} alt="" />
                     </div>
                     <div className="card flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-                        <form onSubmit={handleSubmit(handleLogin)} className='card-body'>
+                        <form onSubmit={handleSubmit(handleRegister)} className='card-body'>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
