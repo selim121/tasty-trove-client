@@ -4,19 +4,31 @@ import img from '../../assets/others/authentication.gif';
 import { Link } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
+import Swal from 'sweetalert2';
 
 const Register = () => {
 
     const { register, handleSubmit, formState: { errors } } = useForm();
-    const {createUser} = useContext(AuthContext);
+    const { createUser, updateUserProfile } = useContext(AuthContext);
 
     const handleLogin = (data, e) => {
         createUser(data.email, data.password)
-        .then(result => {
-            const loggedUser = result.user;
-            console.log(loggedUser);
-        e.target.reset();
-        })
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser);
+                updateUserProfile(data.name, data.photoUrl)
+                .then(() => {})
+                .catch(error => console.log(error))
+                e.target.reset();
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Register Successfully',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                  
+            })
     }
 
     return (
@@ -30,13 +42,20 @@ const Register = () => {
                         <img src={img} alt="" />
                     </div>
                     <div className="card flex-shrink-0 md:w-1/2 max-w-sm shadow-2xl bg-base-100">
-                    <form onSubmit={handleSubmit(handleLogin)} className='card-body'>
-                    <div className="form-control">
+                        <form onSubmit={handleSubmit(handleLogin)} className='card-body'>
+                            <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Name</span>
                                 </label>
                                 <input type="text" placeholder="Your name" className="input input-bordered" {...register("name", { required: true })} />
                                 {errors.name && <span className='text-red-600'>Name is required</span>}
+                            </div>
+                            <div className="form-control">
+                                <label className="label">
+                                    <span className="label-text">Photo URL</span>
+                                </label>
+                                <input type="text" placeholder="Your photo url" className="input input-bordered" {...register("photoUrl", { required: true })} />
+                                {errors.photoUrl && <span className='text-red-600'>Photo URL is required</span>}
                             </div>
                             <div className="form-control">
                                 <label className="label">
@@ -55,7 +74,7 @@ const Register = () => {
                                 {errors.password?.type === 'maxLength' && <span className='text-red-600'>Password must be 20 characters.</span>}
                             </div>
                             <div className="form-control mt-6">
-                                <input  className="btn border-0 bg-[#35096f]" type="submit" value="Register" />
+                                <input className="btn border-0 bg-[#35096f]" type="submit" value="Register" />
                             </div>
                             <p className='my-4 text-center'>Already have an account ? <Link to={'/login'} className='text-[#4a02afdc] font-bold'>Login</Link></p>
                         </form>
