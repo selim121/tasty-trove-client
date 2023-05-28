@@ -1,21 +1,28 @@
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { AuthContext } from "../../../providers/AuthProvider";
-
+import {FaShoppingCart} from 'react-icons/fa';
+import useCart from "../../../hooks/useCart";
 const NavBar = () => {
 
     const { user, logOut } = useContext(AuthContext);
+    const [cart] = useCart();
 
     const handleLogOut = () => {
         logOut()
-        .then(() => {})
-        .catch(error => console.log(error))
+            .then(() => { })
+            .catch(error => console.log(error))
     }
 
     const navList = <>
         <li><Link to={'/'}>Home</Link></li>
         <li><Link to={'/menu'}>Our Menu</Link></li>
         <li><Link to={'/order/salad'}>Order Food</Link></li>
+        <li><Link to={'/'}>
+            <button className="btn gap-2">
+                <FaShoppingCart></FaShoppingCart>
+                <div className="badge badge-secondary">+{cart?.length || 0}</div>
+            </button></Link></li>
     </>
 
     return (
@@ -43,7 +50,7 @@ const NavBar = () => {
                 <div className="navbar-end">
                     {
                         user ? <>
-                            <Link onClick={handleLogOut} to={'/login'}><button className="btn btn-outline bg-[#e1cff6]  border-0 border-b-4 btn-primary mt-4">Log Out</button></Link>
+                            <Link onClick={handleLogOut} to={'/'}><button className="btn btn-outline bg-[#e1cff6]  border-0 border-b-4 btn-primary mt-4">Log Out</button></Link>
                         </>
                             : <>
                                 <Link to={'/login'}><button className="btn btn-outline bg-[#e1cff6]  border-0 border-b-4 btn-primary mt-4">Log In</button></Link>
