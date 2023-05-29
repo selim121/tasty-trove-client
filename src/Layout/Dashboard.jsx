@@ -1,10 +1,15 @@
 import React from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
-import { FaCalendarAlt, FaHome, FaShoppingCart, FaWallet } from 'react-icons/fa';
+import { FaBook, FaCalendarAlt, FaHome, FaShoppingCart, FaUsers, FaUtensils, FaWallet } from 'react-icons/fa';
 import useCart from '../hooks/useCart';
 
 const Dashboard = () => {
+
     const [cart] = useCart();
+
+    // TODO: load data from the server to have dynamic isAdmin based on Data
+    const isAdmin = true;
+
     return (
         <>
             <div className="drawer drawer-mobile ">
@@ -16,19 +21,37 @@ const Dashboard = () => {
                 <div className="drawer-side bg-[#bd8aff]">
                     <label htmlFor="my-drawer-2" className="drawer-overlay"></label>
                     <ul className="menu p-4 w-80 ">
-                        <li><NavLink to={'/dashboard/home'}><FaHome></FaHome> User Home</NavLink></li>
-                        <li><NavLink to={'/dashboard/reservation'}><FaCalendarAlt></FaCalendarAlt> Reservation</NavLink></li>
-                        <li><NavLink to={'/dashboard/history'}><FaWallet></FaWallet> Payment History</NavLink></li>
-                        <li>
-                            <NavLink to={'/dashboard/mycart'}><FaShoppingCart></FaShoppingCart> My Cart
-                                <span className="badge badge-secondary">+{cart?.length || 0}</span>
-                            </NavLink>
 
-                        </li>
+
+                        {
+                            isAdmin ? <>
+                                <li><NavLink to={'/dashboard/home'}><FaHome></FaHome> Admin Home</NavLink></li>
+                                <li><NavLink to={'/dashboard/add-items'}><FaUtensils></FaUtensils> Add Items</NavLink></li>
+                                <li><NavLink to={'/dashboard/all-items'}><FaUtensils></FaUtensils> Manage Items</NavLink></li>
+                                <li><NavLink to={'/dashboard/bookings'}><FaBook></FaBook> Manage Bookings</NavLink></li>
+                                <li><NavLink to={'/dashboard/all-users'}><FaUsers></FaUsers> All Users</NavLink></li>
+                                
+                            </> : <>
+                                <li><NavLink to={'/dashboard/home'}><FaHome></FaHome> User Home</NavLink></li>
+                                <li><NavLink to={'/dashboard/reservation'}><FaCalendarAlt></FaCalendarAlt> Reservation</NavLink></li>
+                                <li><NavLink to={'/dashboard/history'}><FaWallet></FaWallet> Payment History</NavLink></li>
+                                <li>
+                                    <NavLink to={'/dashboard/mycart'}><FaShoppingCart></FaShoppingCart> My Cart
+                                        <span className="badge badge-secondary">+{cart?.length || 0}</span>
+                                    </NavLink>
+
+                                </li>
+                            </>
+                        }
+
+
+
                         <div className="divider"></div>
+
                         <li><NavLink to={'/'}><FaHome></FaHome> Home</NavLink></li>
                         <li><NavLink to={'/menu'}> Our Menu</NavLink></li>
                         <li><NavLink to={'/order/salad'}> Order Food</NavLink></li>
+                        <li><NavLink to={'/contact'}> Contact</NavLink></li>
                     </ul>
 
                 </div>

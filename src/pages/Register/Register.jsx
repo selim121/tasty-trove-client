@@ -5,6 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Helmet } from 'react-helmet-async';
 import { AuthContext } from '../../providers/AuthProvider';
 import Swal from 'sweetalert2';
+import SocialLogin from '../../components/SocialLogin/SocialLogin';
 
 const Register = () => {
 
@@ -18,18 +19,29 @@ const Register = () => {
                 const loggedUser = result.user;
                 console.log(loggedUser);
                 updateUserProfile(data.name, data.photoUrl)
-                .then(() => {})
-                .catch(error => console.log(error))
-                e.target.reset();
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'success',
-                    title: 'Register Successfully',
-                    showConfirmButton: false,
-                    timer: 1500
-                  });
-                  navigate('/');
-                  
+                    .then(() => {
+                        const saveUser = {name: data.name, email: data.email};
+                        fetch('http://localhost:4000/users', {
+                            method: 'POST',
+                            headers: { 'content-type': 'application/json' },
+                            body: JSON.stringify(saveUser)
+                        })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.insertedId) {
+                                    e.target.reset();
+                                    Swal.fire({
+                                        position: 'top-end',
+                                        icon: 'success',
+                                        title: 'Register Successfully',
+                                        showConfirmButton: false,
+                                        timer: 1500
+                                    });
+                                    navigate('/');
+                                }
+                            })
+                    })
+                    .catch(error => console.log(error))
             })
     }
 
@@ -79,6 +91,7 @@ const Register = () => {
                                 <input className="btn border-0 bg-[#35096f]" type="submit" value="Register" />
                             </div>
                             <p className='my-4 text-center'>Already have an account ? <Link to={'/login'} className='text-[#4a02afdc] font-bold'>Login</Link></p>
+                            <SocialLogin></SocialLogin>
                         </form>
                     </div>
                 </div>
