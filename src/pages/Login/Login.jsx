@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
@@ -86,7 +87,7 @@ const Login = () => {
                             {errors.exampleRequired && <span>This field is required</span>}
                             {/* TODO: make button disabled for captcha */}
                             <div className="form-control mt-6">
-                                <input disabled={disabled} className="btn border-0 bg-[#35096f]" type="submit" value="login" />
+                                <input disabled={false} className="btn border-0 bg-[#35096f]" type="submit" value="login" />
                             </div>
                             <p className='my-4 text-center'>New to TastyTrove ? <Link to={'/register'} className='text-[#4a02afdc] font-bold'>Register</Link></p>
                             <SocialLogin></SocialLogin>
