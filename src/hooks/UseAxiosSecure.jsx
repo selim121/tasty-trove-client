@@ -4,13 +4,13 @@ import useAuth from './useAuth';
 import { useEffect } from 'react';
 
 
-const useAxiosSecure = () => {
-  const { logOut } = useAuth(); 
-  const navigate = useNavigate(); 
+const axiosSecure = axios.create({
+  baseURL: 'http://localhost:4000',
+});
 
-  const axiosSecure = axios.create({
-    baseURL: 'http://localhost:4000', 
-  });
+const useAxiosSecure = () => {
+  const { logOut } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     axiosSecure.interceptors.request.use((config) => {
@@ -31,7 +31,7 @@ const useAxiosSecure = () => {
         return Promise.reject(error);
       }
     );
-  }, [logOut, navigate, axiosSecure]);
+  }, [logOut, navigate]);
 
   return [axiosSecure];
 };
