@@ -21,7 +21,7 @@ const Register = () => {
                 updateUserProfile(data.name, data.photoUrl)
                     .then(() => {
                         const saveUser = {name: data.name, email: data.email};
-                        fetch('http://localhost:4000/users', {
+                        fetch('https://tasty-trove-server.vercel.app/users', {
                             method: 'POST',
                             headers: { 'content-type': 'application/json' },
                             body: JSON.stringify(saveUser)

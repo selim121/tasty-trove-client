@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 
 const axiosSecure = axios.create({
-  baseURL: 'http://localhost:4000',
+  baseURL: 'https://tasty-trove-server.vercel.app',
 });
 
 const useAxiosSecure = () => {

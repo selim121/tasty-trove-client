@@ -16,7 +16,7 @@ const SocialLogin = () => {
             .then(result => {
                 const loggedInUser = result.user;
                 const saveUser = { name: loggedInUser.displayName, email: loggedInUser.email };
-                fetch('http://localhost:4000/users', {
+                fetch('https://tasty-trove-server.vercel.app/users', {
                     method: 'POST',
                     headers: { 'content-type': 'application/json' },
                     body: JSON.stringify(saveUser)
