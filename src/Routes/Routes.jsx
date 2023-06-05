@@ -17,6 +17,8 @@ import ManageItems from "../pages/Dashboard/ManageItems/ManageItems";
 import Payment from "../pages/Dashboard/Payment/Payment";
 import UserHome from "../pages/UserHome/UserHome";
 import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
+import ManageBookings from "../pages/Dashboard/ManageBookings/ManageBookings";
+import Contact from "../pages/Contact/Contact";
   
   const router = createBrowserRouter([
     {
@@ -42,6 +44,10 @@ import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
         {
           path: 'register',
           element: <Register></Register>
+        },
+        {
+          path: 'contact',
+          element: <Contact></Contact>
         }
       ]
     },
@@ -77,6 +83,10 @@ import AdminHome from "../pages/Dashboard/AdminHome/AdminHome";
         {
           path: '/dashboard/manage-items',
           element: <AdminRoute><ManageItems></ManageItems></AdminRoute>
+        },
+        {
+          path: '/dashboard/manage-bookings',
+          element: <AdminRoute><ManageBookings></ManageBookings></AdminRoute>
         }
       ]
     }
